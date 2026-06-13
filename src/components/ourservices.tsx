@@ -1,81 +1,119 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+} from "react";
 import Image from "next/image";
 import { servicesData } from "@/app/data/services";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const AUTOPLAY_MS = 3500;
-const GAP_PX = 24; // gap-6 equivalent in pixels
+const AUTOPLAY_MS = 4000;
+const GAP_PX = 24; // matches gap-6
+const SWIPE_THRESHOLD = 50; // px before a swipe registers
+const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 export default function OurServices() {
-  const [current, setCurrent] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
-  const [dragging, setDragging] = useState(false);
-  const dragStartX = useRef(0);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const total = servicesData.length;
 
-  // Responsive visible count
+  const [current, setCurrent] = useState(0);
   const [vis, setVis] = useState(1);
+  const [paused, setPaused] = useState(false);
+  const [reduceMotion, setReduceMotion] = useState(false);
+
+  // Drag state (pointer-based, works for mouse + touch)
+  const [dragging, setDragging] = useState(false);
+  const [dragDelta, setDragDelta] = useState(0);
+  const startX = useRef(0);
+  const trackW = useRef(0);
+
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const stageRef = useRef<HTMLDivElement | null>(null);
+
+  const maxIndex = Math.max(0, total - vis);
+  const isCoverflow = vis === 1;
+  const dotCount = isCoverflow ? total : maxIndex + 1;
+
+  /* ── Responsive visible count ── */
   useEffect(() => {
     const update = () => {
-      if (window.innerWidth >= 1024) {
-        setVis(3); // Desktop / Laptop
-      } else if (window.innerWidth >= 768) {
-        setVis(2); // Tablet
-      } else {
-        setVis(1); // Mobile
-      }
+      const w = window.innerWidth;
+      setVis(w >= 1024 ? 3 : w >= 768 ? 2 : 1);
     };
     update();
     window.addEventListener("resize", update);
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  const maxIndex = Math.max(0, total - vis);
+  /* ── Reduced motion preference ── */
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const set = () => setReduceMotion(mq.matches);
+    set();
+    mq.addEventListener("change", set);
+    return () => mq.removeEventListener("change", set);
+  }, []);
+
+  /* ── Keep current in range when layout changes ── */
+  useEffect(() => {
+    setCurrent((c) =>
+      isCoverflow ? Math.min(c, total - 1) : Math.min(c, maxIndex)
+    );
+  }, [vis, total, maxIndex, isCoverflow]);
 
   const go = useCallback(
     (idx: number) => {
-      if (vis === 1) {
-        // Mobile depth loop
-        setCurrent(((idx % total) + total) % total);
+      if (isCoverflow) {
+        setCurrent(((idx % total) + total) % total); // wrap
       } else {
-        // Desktop normal wrap
-        if (idx > maxIndex) {
-          setCurrent(0);
-        } else if (idx < 0) {
-          setCurrent(maxIndex);
-        } else {
-          setCurrent(idx);
-        }
+        if (idx > maxIndex) setCurrent(0);
+        else if (idx < 0) setCurrent(maxIndex);
+        else setCurrent(idx);
       }
     },
-    [total, vis, maxIndex]
+    [isCoverflow, total, maxIndex]
   );
 
-  // Autoplay
+  /* ── Autoplay ── */
   useEffect(() => {
-    if (isHovered) return;
-    timerRef.current = setTimeout(() => {
-      go(current + 1);
-    }, AUTOPLAY_MS);
+    if (paused || dragging || reduceMotion || total <= vis) return;
+    timerRef.current = setTimeout(() => go(current + 1), AUTOPLAY_MS);
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [current, isHovered, go]);
+  }, [current, paused, dragging, reduceMotion, total, vis, go]);
 
-  // Drag swipe for mobile
-  const onDragStart = (x: number) => {
+  /* ── Pointer drag (shared) ── */
+  const onPointerDown = (e: React.PointerEvent) => {
+    startX.current = e.clientX;
+    trackW.current = e.currentTarget.getBoundingClientRect().width;
     setDragging(true);
-    dragStartX.current = x;
+    setDragDelta(0);
   };
-  const onDragEnd = (x: number) => {
+  const onPointerMove = (e: React.PointerEvent) => {
     if (!dragging) return;
+    setDragDelta(e.clientX - startX.current);
+  };
+  const endDrag = () => {
+    if (!dragging) return;
+    if (Math.abs(dragDelta) > SWIPE_THRESHOLD) {
+      go(current + (dragDelta < 0 ? 1 : -1));
+    }
     setDragging(false);
-    const diff = dragStartX.current - x;
-    if (Math.abs(diff) > 50) {
-      go(current + (diff > 0 ? 1 : -1));
+    setDragDelta(0);
+  };
+
+  /* ── Keyboard ── */
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      go(current - 1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      go(current + 1);
     }
   };
 
@@ -86,145 +124,129 @@ export default function OurServices() {
     return d;
   };
 
+  // Desktop spotlight: only the centered card on 3-up; both equal on 2-up.
+  const centerIndex = useMemo(
+    () => Math.min(current + Math.floor(vis / 2), total - 1),
+    [current, vis, total]
+  );
+
+  const trackTransition =
+    dragging || reduceMotion ? "none" : `transform 0.6s ${EASE}`;
+
   return (
     <section
       id="services"
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Our services"
       className="relative w-full overflow-hidden"
-      style={{ background: "transparent" }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+      onFocusCapture={() => setPaused(true)}
+      onBlurCapture={() => setPaused(false)}
     >
       <div
-        className="relative max-w-7xl mx-auto px-12 sm:px-16 flex flex-col"
-        style={{ height: "80vh", minHeight: 560 }}
+        className="relative mx-auto flex max-w-7xl flex-col px-12 sm:px-16"
+        style={{ height: "80vh", minHeight: 560, maxHeight: 820 }}
       >
-        {/* ── Carousel Stage ── */}
-        <div className="relative flex-1 flex items-center min-h-0">
-          
-          {/* Left Arrow (Positioned inside outer padding) */}
+        {/* ── Stage ── */}
+        <div
+          ref={stageRef}
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          className="relative flex min-h-0 flex-1 items-center outline-none"
+        >
+          {/* Prev */}
           <button
+            type="button"
+            aria-label="Previous service"
             onClick={() => go(current - 1)}
-            className="absolute left-0 z-20 p-2 sm:p-2.5 rounded-full
-                       bg-white/10 backdrop-blur-sm border border-white/20 text-white
-                       hover:bg-white hover:text-neutral-900
-                       transition-all duration-200 shadow-lg shrink-0"
-            style={{ top: "50%", transform: "translateY(-50%)" }}
+            className="absolute left-0 top-1/2 z-20 -translate-y-1/2 rounded-full
+                       bg-white p-2 text-neutral-800 shadow-lg ring-1 ring-black/5
+                       transition-all duration-200 hover:bg-[#502ec2] hover:text-white
+                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1cb2cb]
+                       sm:p-2.5"
           >
-            <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
 
-          {/* Cards Track (Clips perfectly on borders) */}
-          <div className="relative w-full h-full flex items-center overflow-hidden">
-            {vis === 1 ? (
-              /* MOBILE MODE: Depth Carousel */
-              <div className="relative w-full h-full flex items-center justify-center">
+          {/* Clipping window */}
+          <div
+            className="relative h-full w-full overflow-hidden"
+            style={{ touchAction: "pan-y" }}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={endDrag}
+            onPointerLeave={endDrag}
+            onPointerCancel={endDrag}
+          >
+            {isCoverflow ? (
+              /* ── MOBILE: coverflow / depth (infinite) ── */
+              <div className="relative flex h-full w-full items-center justify-center">
                 {servicesData.map((service, idx) => {
                   const offset = getOffset(idx);
                   const isActive = offset === 0;
-                  const translateX = offset * 80;
-                  const scale = isActive ? 1 : 0.88;
-                  const opacity = Math.abs(offset) > 1 ? 0 : isActive ? 1 : 0.6;
-                  const zIndex = isActive ? 10 : 5 - Math.abs(offset);
-
+                  const hidden = Math.abs(offset) > 1;
                   return (
                     <div
                       key={service.id}
-                      onMouseDown={(e) => onDragStart(e.clientX)}
-                      onMouseUp={(e) => onDragEnd(e.clientX)}
-                      onTouchStart={(e) => onDragStart(e.touches[0].clientX)}
-                      onTouchEnd={(e) => onDragEnd(e.changedTouches[0].clientX)}
+                      aria-hidden={!isActive}
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label={`${idx + 1} of ${total}`}
                       style={{
                         position: "absolute",
-                        width: "80%",
-                        height: "88%",
-                        transform: `translateX(${translateX}%) scale(${scale})`,
-                        opacity,
-                        zIndex,
+                        width: "82%",
+                        height: "90%",
+                        transform: `translateX(${offset * 80}%) scale(${isActive ? 1 : 0.86
+                          })`,
+                        opacity: hidden ? 0 : isActive ? 1 : 0.45,
+                        zIndex: isActive ? 10 : 5 - Math.abs(offset),
+                        pointerEvents: hidden ? "none" : "auto",
                         transition: dragging
                           ? "none"
-                          : "transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.5s ease",
+                          : `transform 0.55s ${EASE}, opacity 0.5s ease`,
                         willChange: "transform, opacity",
                       }}
                     >
-                      <article className="w-full h-full rounded-2xl sm:rounded-3xl overflow-hidden flex flex-col bg-white border border-neutral-100/80 shadow-[0_24px_64px_rgba(0,0,0,0.45)]">
-                        <div className="relative overflow-hidden" style={{ flex: "0 0 65%" }}>
-                          <Image
-                            src={service.image}
-                            alt={service.title}
-                            fill
-                            sizes="80vw"
-                            priority={idx === 0}
-                            className="object-cover"
-                          />
-                        </div>
-                        <div className="flex flex-col justify-center px-4 py-3" style={{ flex: "0 0 35%" }}>
-                          <div className="w-8 h-0.5 bg-neutral-200 mb-2 rounded-full" />
-                          <h3 className="text-sm font-extrabold text-neutral-900 leading-tight tracking-tight line-clamp-1">
-                            {service.title}
-                          </h3>
-                          <p className="mt-1.5 text-[11px] text-neutral-500 leading-relaxed line-clamp-2">
-                            {service.shortDescription}
-                          </p>
-                        </div>
-                      </article>
+                      <Card service={service} priority={idx === 0} compact />
                     </div>
                   );
                 })}
               </div>
             ) : (
-              /* DESKTOP/TABLET MODE: Sliding Spotlight Depth Carousel */
-              <div 
-                className="flex w-full h-full items-center transition-transform duration-550 cubic-bezier(0.25, 0.46, 0.45, 0.94) gap-6"
+              /* ── TABLET / DESKTOP: spotlight track ── */
+              <div
+                className="flex h-full w-full items-center"
                 style={{
-                  transform: `translateX(calc(-${current} * (100% + ${GAP_PX}px) / ${vis}))`,
+                  gap: GAP_PX,
+                  transform: `translateX(calc(${-current * (100 / vis)
+                    }% - ${(current * GAP_PX) / vis}px + ${dragging ? dragDelta : 0
+                    }px))`,
+                  transition: trackTransition,
+                  willChange: "transform",
                 }}
               >
                 {servicesData.map((service, idx) => {
-                  const centerIndex = (current + Math.floor(vis / 2)) % total;
-                  const isActive = idx === centerIndex;
-                  const scale = isActive ? 1 : 0.92;
-                  const opacity = isActive ? 1 : 0.65;
-
+                  const isActive = vis % 2 === 1 ? idx === centerIndex : true;
                   return (
                     <div
                       key={service.id}
-                      className="shrink-0 h-[88%] transition-all duration-500 ease-out"
+                      role="group"
+                      aria-roledescription="slide"
+                      aria-label={`${idx + 1} of ${total}`}
+                      className="h-[90%] shrink-0"
                       style={{
                         width: `calc((100% - ${(vis - 1) * GAP_PX}px) / ${vis})`,
-                        willChange: "transform",
+                        transform: `scale(${isActive ? 1 : 0.92})`,
+                        opacity: isActive ? 1 : 0.6,
+                        transition: reduceMotion
+                          ? "none"
+                          : `transform 0.5s ${EASE}, opacity 0.5s ease`,
+                        willChange: "transform, opacity",
                       }}
                     >
-                      <article 
-                        className="w-full h-full rounded-3xl overflow-hidden flex flex-col bg-white border border-neutral-100 transition-all duration-500 ease-out"
-                        style={{
-                          transform: `scale(${scale})`,
-                          opacity,
-                          boxShadow: isActive
-                            ? "0 24px 64px rgba(0,0,0,0.18), 0 8px 20px rgba(0,0,0,0.08)"
-                            : "0 4px 16px rgba(0,0,0,0.05)",
-                        }}
-                      >
-                        {/* Image Column */}
-                        <div className="relative overflow-hidden w-full h-full group" style={{ flex: "0 0 65%" }}>
-                          <Image
-                            src={service.image}
-                            alt={service.title}
-                            fill
-                            sizes="(max-width: 1024px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                          />
-                        </div>
-                        {/* Title and Description Column */}
-                        <div className="flex flex-col justify-center px-6 py-4 bg-white" style={{ flex: "0 0 35%" }}>
-                          <div className="w-8 h-0.5 bg-neutral-200 mb-2 rounded-full" />
-                          <h3 className="text-base font-extrabold text-neutral-900 leading-tight tracking-tight line-clamp-1">
-                            {service.title}
-                          </h3>
-                          <p className="mt-1.5 text-xs text-neutral-500 leading-relaxed line-clamp-3">
-                            {service.shortDescription}
-                          </p>
-                        </div>
-                      </article>
+                      <Card service={service} active={isActive} />
                     </div>
                   );
                 })}
@@ -232,37 +254,98 @@ export default function OurServices() {
             )}
           </div>
 
-          {/* Right Arrow (Positioned inside outer padding) */}
+          {/* Next */}
           <button
+            type="button"
+            aria-label="Next service"
             onClick={() => go(current + 1)}
-            className="absolute right-0 z-20 p-2 sm:p-2.5 rounded-full
-                       bg-white/10 backdrop-blur-sm border border-white/20 text-white
-                       hover:bg-white hover:text-neutral-900
-                       transition-all duration-200 shadow-lg shrink-0"
-            style={{ top: "50%", transform: "translateY(-50%)" }}
+            className="absolute right-0 top-1/2 z-20 -translate-y-1/2 rounded-full
+                       bg-white p-2 text-neutral-800 shadow-lg ring-1 ring-black/5
+                       transition-all duration-200 hover:bg-[#502ec2] hover:text-white
+                       focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1cb2cb]
+                       sm:p-2.5"
           >
-            <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
+            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
           </button>
-
         </div>
 
-        {/* ── Dot Indicators ── */}
-        <div className="flex justify-center gap-1.5 py-5 shrink-0">
-          {Array.from({ length: vis === 1 ? total : maxIndex + 1 }).map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => go(idx)}
-              className="rounded-full transition-all duration-300"
-              style={{
-                width: idx === current ? 24 : 6,
-                height: 6,
-                background: idx === current ? "#1cb2cb" : "rgba(255,255,255,0.3)",
-              }}
-            />
-          ))}
+        {/* ── Dots ── */}
+        <div className="flex shrink-0 justify-center gap-1.5 py-5">
+          {Array.from({ length: dotCount }).map((_, idx) => {
+            const isOn = idx === current;
+            return (
+              <button
+                key={idx}
+                type="button"
+                aria-label={`Go to slide ${idx + 1}`}
+                aria-current={isOn}
+                onClick={() => go(idx)}
+                className="h-1.5 rounded-full transition-all duration-300"
+                style={{
+                  width: isOn ? 26 : 6,
+                  background: isOn ? "#1cb2cb" : "rgba(120,120,135,0.45)",
+                }}
+              />
+            );
+          })}
         </div>
-
       </div>
     </section>
+  );
+}
+
+/* ── Card ── */
+function Card({
+  service,
+  active = true,
+  priority = false,
+  compact = false,
+}: {
+  service: (typeof servicesData)[number];
+  active?: boolean;
+  priority?: boolean;
+  compact?: boolean;
+}) {
+  return (
+    <article
+      className="group flex h-full w-full flex-col overflow-hidden rounded-3xl border border-neutral-100 bg-white"
+      style={{
+        boxShadow: active
+          ? "0 24px 64px rgba(0,0,0,0.18), 0 8px 20px rgba(0,0,0,0.08)"
+          : "0 4px 16px rgba(0,0,0,0.06)",
+        transition: "box-shadow 0.5s ease",
+      }}
+    >
+      <div className="relative overflow-hidden" style={{ flex: "0 0 65%" }}>
+        <Image
+          src={service.image}
+          alt={service.title}
+          fill
+          draggable={false}
+          sizes="(max-width: 768px) 82vw, (max-width: 1024px) 50vw, 33vw"
+          priority={priority}
+          className="select-none object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      </div>
+      <div
+        className={`flex flex-col justify-center bg-white ${compact ? "px-4 py-3" : "px-6 py-4"
+          }`}
+        style={{ flex: "0 0 35%" }}
+      >
+        <div className="mb-2 h-0.5 w-8 rounded-full bg-[#1cb2cb]" />
+        <h3
+          className={`font-bold leading-tight tracking-tight text-neutral-900 line-clamp-1 ${compact ? "text-sm" : "text-base lg:text-lg"
+            }`}
+        >
+          {service.title}
+        </h3>
+        <p
+          className={`mt-1.5 leading-relaxed text-neutral-500 ${compact ? "line-clamp-2 text-[11px]" : "line-clamp-3 text-xs"
+            }`}
+        >
+          {service.shortDescription}
+        </p>
+      </div>
+    </article>
   );
 }

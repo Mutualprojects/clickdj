@@ -13,7 +13,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const AUTOPLAY_MS = 4000;
 const GAP_PX = 24; // matches gap-6
-const SWIPE_THRESHOLD = 50; // px before a swipe registers
+const SWIPE_THRESHOLD = 50;
 const EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
 
 export default function OurServices() {
@@ -24,20 +24,16 @@ export default function OurServices() {
   const [paused, setPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
 
-  // Drag state (pointer-based, works for mouse + touch)
   const [dragging, setDragging] = useState(false);
   const [dragDelta, setDragDelta] = useState(0);
   const startX = useRef(0);
-  const trackW = useRef(0);
 
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const stageRef = useRef<HTMLDivElement | null>(null);
 
   const maxIndex = Math.max(0, total - vis);
   const isCoverflow = vis === 1;
   const dotCount = isCoverflow ? total : maxIndex + 1;
 
-  /* ── Responsive visible count ── */
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
@@ -48,7 +44,6 @@ export default function OurServices() {
     return () => window.removeEventListener("resize", update);
   }, []);
 
-  /* ── Reduced motion preference ── */
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     const set = () => setReduceMotion(mq.matches);
@@ -57,7 +52,6 @@ export default function OurServices() {
     return () => mq.removeEventListener("change", set);
   }, []);
 
-  /* ── Keep current in range when layout changes ── */
   useEffect(() => {
     setCurrent((c) =>
       isCoverflow ? Math.min(c, total - 1) : Math.min(c, maxIndex)
@@ -67,7 +61,7 @@ export default function OurServices() {
   const go = useCallback(
     (idx: number) => {
       if (isCoverflow) {
-        setCurrent(((idx % total) + total) % total); // wrap
+        setCurrent(((idx % total) + total) % total);
       } else {
         if (idx > maxIndex) setCurrent(0);
         else if (idx < 0) setCurrent(maxIndex);
@@ -77,7 +71,6 @@ export default function OurServices() {
     [isCoverflow, total, maxIndex]
   );
 
-  /* ── Autoplay ── */
   useEffect(() => {
     if (paused || dragging || reduceMotion || total <= vis) return;
     timerRef.current = setTimeout(() => go(current + 1), AUTOPLAY_MS);
@@ -86,10 +79,8 @@ export default function OurServices() {
     };
   }, [current, paused, dragging, reduceMotion, total, vis, go]);
 
-  /* ── Pointer drag (shared) ── */
   const onPointerDown = (e: React.PointerEvent) => {
     startX.current = e.clientX;
-    trackW.current = e.currentTarget.getBoundingClientRect().width;
     setDragging(true);
     setDragDelta(0);
   };
@@ -106,7 +97,6 @@ export default function OurServices() {
     setDragDelta(0);
   };
 
-  /* ── Keyboard ── */
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
@@ -124,7 +114,6 @@ export default function OurServices() {
     return d;
   };
 
-  // Desktop spotlight: only the centered card on 3-up; both equal on 2-up.
   const centerIndex = useMemo(
     () => Math.min(current + Math.floor(vis / 2), total - 1),
     [current, vis, total]
@@ -145,13 +134,16 @@ export default function OurServices() {
       onFocusCapture={() => setPaused(true)}
       onBlurCapture={() => setPaused(false)}
     >
+      {/* Responsive height: compact on phones, tall on desktop */}
       <div
-        className="relative mx-auto flex max-w-7xl flex-col px-12 sm:px-16"
-        style={{ height: "80vh", minHeight: 560, maxHeight: 820 }}
+        className="relative mx-auto flex max-w-7xl flex-col
+                   px-4 md:px-12 lg:px-16
+                   h-[500px] min-h-[440px]
+                   md:h-[600px]
+                   lg:h-[80vh] lg:min-h-[560px] lg:max-h-[820px]"
       >
         {/* ── Stage ── */}
         <div
-          ref={stageRef}
           tabIndex={0}
           onKeyDown={onKeyDown}
           className="relative flex min-h-0 flex-1 items-center outline-none"
@@ -196,11 +188,11 @@ export default function OurServices() {
                       aria-label={`${idx + 1} of ${total}`}
                       style={{
                         position: "absolute",
-                        width: "82%",
-                        height: "90%",
-                        transform: `translateX(${offset * 80}%) scale(${isActive ? 1 : 0.86
+                        width: "90%",
+                        height: "94%",
+                        transform: `translateX(${offset * 86}%) scale(${isActive ? 1 : 0.82
                           })`,
-                        opacity: hidden ? 0 : isActive ? 1 : 0.45,
+                        opacity: hidden ? 0 : isActive ? 1 : 0.35,
                         zIndex: isActive ? 10 : 5 - Math.abs(offset),
                         pointerEvents: hidden ? "none" : "auto",
                         transition: dragging
@@ -270,7 +262,7 @@ export default function OurServices() {
         </div>
 
         {/* ── Dots ── */}
-        <div className="flex shrink-0 justify-center gap-1.5 py-5">
+        <div className="flex shrink-0 justify-center gap-1.5 py-4 md:py-5">
           {Array.from({ length: dotCount }).map((_, idx) => {
             const isOn = idx === current;
             return (
@@ -316,31 +308,36 @@ function Card({
         transition: "box-shadow 0.5s ease",
       }}
     >
-      <div className="relative overflow-hidden" style={{ flex: "0 0 65%" }}>
+      {/* Image: bigger share on mobile so the card isn't mostly empty white */}
+      <div
+        className="relative overflow-hidden bg-neutral-50"
+        style={{ flex: compact ? "0 0 60%" : "0 0 65%" }}
+      >
         <Image
           src={service.image}
           alt={service.title}
           fill
           draggable={false}
-          sizes="(max-width: 768px) 82vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 768px) 90vw, (max-width: 1024px) 50vw, 33vw"
           priority={priority}
           className="select-none object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
+
       <div
-        className={`flex flex-col justify-center bg-white ${compact ? "px-4 py-3" : "px-6 py-4"
+        className={`flex flex-col justify-center bg-white ${compact ? "px-5 py-4" : "px-6 py-4"
           }`}
-        style={{ flex: "0 0 35%" }}
+        style={{ flex: compact ? "0 0 40%" : "0 0 35%" }}
       >
         <div className="mb-2 h-0.5 w-8 rounded-full bg-[#1cb2cb]" />
         <h3
-          className={`font-bold leading-tight tracking-tight text-neutral-900 line-clamp-1 ${compact ? "text-sm" : "text-base lg:text-lg"
+          className={`font-bold leading-tight tracking-tight text-neutral-900 line-clamp-1 ${compact ? "text-[15px]" : "text-base lg:text-lg"
             }`}
         >
           {service.title}
         </h3>
         <p
-          className={`mt-1.5 leading-relaxed text-neutral-500 ${compact ? "line-clamp-2 text-[11px]" : "line-clamp-3 text-xs"
+          className={`mt-1.5 leading-relaxed text-neutral-500 line-clamp-2 ${compact ? "text-[13px]" : "text-xs lg:line-clamp-3"
             }`}
         >
           {service.shortDescription}

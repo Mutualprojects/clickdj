@@ -105,20 +105,6 @@ export function MobileMenu({ isOpen, setIsOpen, dark, setDark }: MobileMenuProps
             </div>
 
             <div className="mt-auto pb-8 flex flex-col gap-8">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.9 }}
-                className="space-y-4"
-              >
-                <p className="text-[#f5f1e8]/60 text-[10px] font-black uppercase tracking-[0.4em]">Get in touch</p>
-                <a 
-                  href="mailto:sirigineedibalaji4@gmail.com" 
-                  className="text-lg font-black text-[#f5f1e8] border-b-4 border-orange-500 pb-1 block w-fit max-w-full truncate"
-                >
-                  sirigineedibalaji4@gmail.com
-                </a>
-              </motion.div>
             </div>
           </div>
         </div>

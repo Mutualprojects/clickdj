@@ -5,10 +5,12 @@ import Badge from "@/components/badge";
 import OurServices from "@/components/ourservices";
 import { motion, useScroll, useTransform } from "framer-motion";
 import OurProcess from "@/app/about-us/components/process";
+import ClientsProjects from "@/components/ClientsProjects";
+import BannerCards from "@/components/BannerCards";
 
 export default function Home() {
   const { scrollY } = useScroll();
-  
+
   // Parallax shifts for clean depth
   const yText = useTransform(scrollY, [0, 600], [0, 100]);
   const yImage = useTransform(scrollY, [0, 600], [0, 60]);
@@ -27,7 +29,7 @@ export default function Home() {
         />
 
         {/* Section 1: Hero — transparent, sits on shared gradient */}
-        <section className="relative h-screen min-h-screen w-full flex flex-col justify-between pt-[95px] pb-6 px-6 lg:px-8 overflow-hidden">
+        <section className="relative h-screen min-h-screen w-full flex flex-col justify-between pt-[95px] pb-6 px-6 lg:pl-20 lg:pr-8 xl:pl-24 xl:pr-12 overflow-hidden">
           {/* Ambient particles */}
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#1cb2cb]/20 rounded-full blur-3xl animate-pulse" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#502ec2]/30 rounded-full blur-3xl animate-pulse delay-1000" />
@@ -36,7 +38,7 @@ export default function Home() {
           <div className="relative max-w-7xl w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10 mx-auto">
 
             {/* Left Column: Headings */}
-            <motion.div 
+            <motion.div
               style={{ y: yText, opacity: opacityHero }}
               className="lg:col-span-7 flex flex-col justify-center text-left"
             >
@@ -83,25 +85,25 @@ export default function Home() {
       </div>
 
       {/* Section 2.5: About Us */}
-      <section 
-        id="about-us" 
+      <section
+        id="about-us"
         className="relative w-full py-20 bg-white dark:bg-neutral-950 overflow-hidden border-t border-neutral-100 dark:border-neutral-900"
       >
         {/* Ambient Glow */}
         <div className="absolute -top-40 -right-40 w-96 h-96 bg-[#1cb2cb]/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:pl-20 lg:pr-8 xl:pl-24 xl:pr-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left Column: Transparent Ripped Paper Image */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.96, x: -35 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-5 relative w-full aspect-[4/3] group select-none"
             >
-              <Image 
+              <Image
                 src="/text-about-us-appearing-torn-blue-paper-about-us-words-written-ripped-torn-paper.png"
                 alt="About ClickDiji"
                 fill
@@ -111,7 +113,7 @@ export default function Home() {
             </motion.div>
 
             {/* Right Column: Title and Content */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 35 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -125,7 +127,7 @@ export default function Home() {
                 About Us
               </h2>
               <div className="mt-5 mb-6 w-12 h-1 bg-[#502ec2] rounded-full" />
-              
+
               <p className="text-lg sm:text-xl text-neutral-800 dark:text-neutral-200 font-medium leading-relaxed">
                 At <span className="font-extrabold text-[#502ec2] dark:text-[#1cb2cb]">ClickDiji</span>, we believe a brand’s digital presence is only as strong as its underlying architecture. We are a premium, full-service technology and digital marketing agency built to scale ambitious enterprises in today’s fast-evolving marketplace.
               </p>
@@ -136,18 +138,18 @@ export default function Home() {
       </section>
 
       {/* Section 2.6: Who We Are */}
-      <section 
-        id="who-we-are" 
+      <section
+        id="who-we-are"
         className="relative w-full py-20 bg-neutral-50 dark:bg-neutral-900/30 overflow-hidden border-t border-neutral-100 dark:border-neutral-900"
       >
         {/* Ambient Glow */}
         <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-[#502ec2]/5 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+        <div className="max-w-7xl mx-auto px-6 lg:pl-20 lg:pr-8 xl:pl-24 xl:pr-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left Column: Who We Are Title, Content & Pillars */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -35 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -165,7 +167,7 @@ export default function Home() {
               <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed mb-8">
                 We bridge the gap between technical engineering and powerful brand storytelling. By fusing cutting-edge web development with data-backed performance marketing, we cut through the digital noise to engineer real business outcomes, capture high-intent leads, and maximize your market presence.
               </p>
-              
+
               {/* Pillars list inline */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 rounded-xl bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 shadow-sm">
@@ -184,14 +186,14 @@ export default function Home() {
             </motion.div>
 
             {/* Right Column: Desk Concept Image */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.96, x: 35 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
               className="lg:col-span-5 relative w-full aspect-[4/3] group select-none"
             >
-              <Image 
+              <Image
                 src="/top-view-desk-concept-with-white-background.png"
                 alt="Who We Are Concept"
                 fill
@@ -205,13 +207,13 @@ export default function Home() {
       </section>
 
       {/* Section 2.7: Our Core Pillars */}
-      <section 
-        id="core-pillars" 
+      <section
+        id="core-pillars"
         className="relative w-full py-24 bg-white overflow-hidden border-t border-neutral-100 text-neutral-900"
       >
         {/* Overall Background Image Backdrop (White/Light theme) */}
         <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image 
+          <Image
             src="/creative-social-media-internet-mockup-with-laptop-keyboard.png"
             alt="Core Pillars Backdrop"
             fill
@@ -220,8 +222,8 @@ export default function Home() {
           <div className="absolute inset-0 bg-white/75" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10 space-y-20">
-          
+        <div className="max-w-7xl mx-auto px-6 lg:pl-20 lg:pr-8 xl:pl-24 xl:pr-12 relative z-10 space-y-20">
+
           {/* Section Header */}
           <div className="text-center">
             <span className="text-xs font-black tracking-[0.25em] text-[#1cb2cb] uppercase">
@@ -236,14 +238,14 @@ export default function Home() {
           {/* 1. Vision Block (Image Left, Text Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Column: Transparent Image */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.96, x: -35 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-5 relative w-full aspect-[4/3] group select-none"
             >
-              <Image 
+              <Image
                 src="/top-view-paper-light-bulb-with-chat-bubble.png"
                 alt="Our Vision"
                 fill
@@ -253,7 +255,7 @@ export default function Home() {
             </motion.div>
 
             {/* Right Column: Text */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: 35 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -276,7 +278,7 @@ export default function Home() {
           {/* 2. Mission Block (Text Left, Image Right) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left Column: Text */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -35 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
@@ -296,14 +298,14 @@ export default function Home() {
             </motion.div>
 
             {/* Right Column: Transparent Image */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, scale: 0.96, x: 35 }}
               whileInView={{ opacity: 1, scale: 1, x: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
               className="lg:col-span-5 order-1 lg:order-2 relative w-full aspect-[4/3] group select-none"
             >
-              <Image 
+              <Image
                 src="/arrow-hitting-bullseye.png"
                 alt="Our Mission"
                 fill
@@ -312,12 +314,18 @@ export default function Home() {
               />
             </motion.div>
           </div>
-          </div>
+        </div>
 
       </section>
 
       {/* Section 2.9: Our Process */}
       <OurProcess />
+
+      {/* Section 3.0: Clients & Recent Projects */}
+      <ClientsProjects />
+
+      {/* Section 3.1: Tech Stack Banner Cards */}
+      <BannerCards />
 
     </div>
   );

@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import ScrollToTop from "@/components/ScrollToTop";
+import FloatingSocials from "@/components/FloatingSocials";
 
 const leagueSpartan = League_Spartan({
   variable: "--font-league-spartan",
@@ -44,6 +46,8 @@ export default function RootLayout({
           <Header />
           <main className="flex-1 flex flex-col">{children}</main>
           <Footer />
+          <ScrollToTop />
+          <FloatingSocials />
         </ThemeProvider>
       </body>
     </html>

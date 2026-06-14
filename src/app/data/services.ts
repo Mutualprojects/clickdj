@@ -28,9 +28,9 @@ export const servicesData: Service[] = [
     {
         id: 'svc-001',
         slug: 'web-development',
-        title: 'Web Development',
+        title: 'Web Development & Web Design',
         image: '/web-pages-flying-around-web-designers-desk-computer-display-featuring-agency-web-page-pres.png',
-        shortDescription: 'Architecting high-performance, secure, and fully responsive web ecosystems optimized for seamless user experiences and maximum conversion rates.',
+        shortDescription: 'We build fast, secure, mobile-responsive websites engineered to convert. From corporate sites to e-commerce stores, every ClickDiji build is search-optimized from the first line of code so your site ranks and sells from day one.',
         longDescription: 'We build scalable, future-proof digital foundations using modern frameworks like Next.js and React. Our development process prioritizes Core Web Vitals, accessibility (WCAG), and robust security protocols to ensure your web application not only looks stunning but performs flawlessly under any load.',
         focusedAreas: [
             'Engineering responsive, high-fidelity user interfaces utilizing modular CSS architectures and reusable Component designs to guarantee smooth user flows.',
@@ -66,9 +66,9 @@ export const servicesData: Service[] = [
     {
         id: 'svc-002',
         slug: 'search-engine-optimization',
-        title: 'Search Engine Optimization (SEO)',
+        title: 'SEO Services in Hyderabad',
         image: '/blue-yellow-megaphone-with-word-seo-it.png',
-        shortDescription: 'Enhancing organic discoverability by aligning your site infrastructure with modern search algorithms to drive targeted, high-intent traffic.',
+        shortDescription: 'Our SEO services help your business rank higher on Google and get found by high-intent customers. We handle technical SEO, on-page optimization, local SEO, and content — driving organic traffic that compounds month after month.',
         longDescription: 'Our holistic SEO approach goes beyond basic keyword stuffing. We conduct deep technical audits, optimize semantic HTML structures, and build authoritative backlink profiles to ensure your brand dominates search engine results pages (SERPs) for terms that actually drive revenue.',
         focusedAreas: [
             'Optimizing underlying website architectures, URL structures, XML sitemaps, and server header responses to maximize crawling efficiency by search engine bots.',
@@ -104,9 +104,9 @@ export const servicesData: Service[] = [
     {
         id: 'svc-003',
         slug: 'search-engine-marketing',
-        title: 'Search Engine Marketing (SEM)',
+        title: 'Google Ads & PPC Management',
         image: '/startup-business-concept.png',
-        shortDescription: 'Designing high-yield, hyper-targeted paid acquisition frameworks across major networks to deliver instant market visibility and ROI.',
+        shortDescription: 'Get instant visibility with hyper-targeted Google Ads and paid campaigns. ClickDiji builds and manages PPC funnels focused on cost-per-lead and return on ad spend, so every rupee of your budget works harder.',
         longDescription: 'We engineer data-driven PPC campaigns that put your brand in front of ready-to-buy customers. From granular audience segmentation to automated bidding strategies, we manage your ad spend with the precision of a financial portfolio, maximizing every dollar.',
         focusedAreas: [
             'Configuring, tracking, and optimizing paid search ad structures on Google Ads and Bing Ads to target high-intent transactional search keywords.',
@@ -142,9 +142,9 @@ export const servicesData: Service[] = [
     {
         id: 'svc-004',
         slug: 'social-media-marketing',
-        title: 'Social Media Marketing',
+        title: 'Social Media Marketing & Management',
         image: '/social-media-marketing-concept-marketing-with-applications.png',
-        shortDescription: 'Amplifying your brand’s voice across digital platforms and creating strategic engagement plans to build community loyalty.',
+        shortDescription: 'We grow your brand across Instagram, Facebook, LinkedIn, and X with strategy-led content, paid social, and community building that turns followers into loyal customers.',
         longDescription: 'We transform passive followers into active brand advocates. By leveraging platform-specific algorithms and cultural trends, we craft compelling social strategies that foster genuine community engagement and drive measurable business outcomes.',
         focusedAreas: [
             'Formulating platform-tailored social campaigns for LinkedIn, Instagram, TikTok, and X to foster brand consistency and visual storytelling.',
@@ -182,7 +182,7 @@ export const servicesData: Service[] = [
         slug: 'influencer-marketing',
         title: 'Influencer Marketing',
         image: '/11631502_4572974.jpg',
-        shortDescription: 'Collaborating with trusted digital creators and domain experts to expand your market reach and build authentic brand credibility.',
+        shortDescription: 'We connect your brand with trusted creators and niche experts to expand reach and build authentic credibility with the audiences that matter most.',
         longDescription: 'We bridge the gap between your brand and highly engaged niche audiences. By vetting and partnering with authentic creators whose values align with yours, we generate high-converting User-Generated Content (UGC) and drive trust at scale.',
         focusedAreas: [
             'Sourcing, negotiating contracts, and directing custom content campaigns with micro-influencers and macro-creators aligned with brand aesthetics.',
@@ -220,7 +220,7 @@ export const servicesData: Service[] = [
         slug: 'content-marketing',
         title: 'Content Marketing',
         image: '/2150254625.jpg',
-        shortDescription: 'Crafting authoritative, value-driven narratives that engage your audience, establish industry leadership, and nurture customer relationships.',
+        shortDescription: 'We craft authoritative, SEO-friendly content — blogs, landing pages, and brand stories — that builds trust, ranks on Google, and positions you as a leader in your industry.',
         longDescription: 'Content is the engine of modern digital marketing. We produce deeply researched, SEO-optimized, and highly engaging content assets that answer your customers\' questions, solve their problems, and guide them seamlessly through the buyer\'s journey.',
         focusedAreas: [
             'Authoring technical whitepapers, in-depth corporate blogs, and guest articles to establish authoritative thought leadership positions.',
@@ -258,7 +258,7 @@ export const servicesData: Service[] = [
         slug: 'email-marketing',
         title: 'Email Marketing',
         image: '/businessman-sending-email-by-laptop-computer-customer-business-contact-communication-email-icon-email-marketing-concept-send-email-newsletter-online-working-internet-network.png',
-        shortDescription: 'Deploying automated, personalized email nurture sequences designed to turn potential leads into lifetime brand advocates.',
+        shortDescription: 'We design automated, personalized email journeys that nurture leads, recover lost sales, and turn one-time buyers into repeat customers.',
         longDescription: 'Email remains the highest-ROI digital channel. We design sophisticated, behavior-triggered automation workflows that deliver the right message, to the right person, at the exact right moment, maximizing lifetime value (LTV).',
         focusedAreas: [
             'Building responsive HTML emails, crafting catchy subject lines, and setting up multi-step automated welcome lists for new signups.',
@@ -294,9 +294,9 @@ export const servicesData: Service[] = [
     {
         id: 'svc-008',
         slug: 'product-photography',
-        title: 'Product Photography & Visual Assets',
+        title: 'Product Photography & Visual Content',
         image: '/115463.jpg',
-        shortDescription: 'Delivering high-fidelity visual assets and precision photography that elevate your digital product catalog and highlight brand excellence.',
+        shortDescription: 'High-fidelity product photography and visual assets that make your catalog stand out and lift conversions across your website and ad campaigns.',
         longDescription: 'In e-commerce and digital marketing, visuals are your primary salesperson. We provide studio-grade photography and videography that captures every detail, ensuring your products look as premium in the digital realm as they do in reality.',
         focusedAreas: [
             'Shooting studio-lit, high-resolution product photography with pure white backgrounds for catalogs, Amazon listings, and online shops.',

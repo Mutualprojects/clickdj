@@ -22,10 +22,10 @@ export default function Home() {
       {/* ── Shared gradient wrapper: hero (100vh) + top half of services (37.5vh) ── */}
       <div className="relative w-full overflow-hidden">
 
-        {/* Gradient background layer — extends behind hero AND top half of services */}
+        {/* Gradient background layer — extends behind hero, intro, and top half of services */}
         <div
-          className="absolute inset-x-0 top-0 pointer-events-none"
-          style={{ height: "137.5vh", background: "linear-gradient(to bottom right, #502ec2, #3d20a2, #1cb2cb)" }}
+          className="absolute inset-x-0 top-0 pointer-events-none z-0"
+          style={{ height: "calc(100% - 350px)", background: "linear-gradient(to bottom right, #502ec2, #3d20a2, #1cb2cb)" }}
         />
 
         {/* Section 1: Hero — transparent, sits on shared gradient */}
@@ -43,9 +43,12 @@ export default function Home() {
               className="lg:col-span-7 flex flex-col justify-center text-left"
             >
               <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                Architecting Digital Excellence<br />
-                to Engineer Strategic Growth.
+                Digital Marketing Agency in Hyderabad<br />
+                That Drives Real Growth
               </h1>
+              <p className="mt-4 text-sm sm:text-lg text-white/80 font-medium tracking-wide">
+                Your Click, Our Strategy.
+              </p>
             </motion.div>
 
             {/* Right Column: Hero Image with parallax and subtle idle floating */}
@@ -74,12 +77,37 @@ export default function Home() {
           </div>
 
           {/* Floating Badge */}
-          <div className="w-full shrink-0 mt-auto">
+          <div className="w-full shrink-0 mt-auto z-20">
             <Badge />
           </div>
         </section>
 
+        {/* Intro Paragraph & Buttons Section */}
+        <section className="relative z-10 w-full flex flex-col items-center px-6 pt-16 pb-8 text-center max-w-4xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/90 leading-relaxed font-medium">
+            ClickDiji is a full-service digital marketing agency in Hyderabad helping ambitious brands grow with SEO, high-performance web development, Google Ads, and social media marketing. We pair clean engineering with data-driven campaigns to turn clicks into customers — and customers into long-term growth.
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-5 justify-center">
+            <button className="px-8 py-4 bg-[#1cb2cb] hover:bg-[#189aa8] text-white rounded-full font-bold transition-colors text-lg shadow-lg">
+              Get a Free Strategy Call
+            </button>
+            <button className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full font-bold transition-colors text-lg backdrop-blur-sm">
+              Explore Our Services
+            </button>
+          </div>
+        </section>
+
         {/* Section 2: Our Services — transparent, top half sits on gradient, bottom half on white */}
+        <div className="relative z-10 w-full flex flex-col items-center px-6 mt-8 mb-2 lg:mt-12">
+          <div className="text-center max-w-3xl mx-auto">
+            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white mb-5">
+              Our Digital Marketing Services in Hyderabad
+            </h2>
+            <p className="text-base sm:text-lg text-white/90 leading-relaxed">
+              From your first click to your final conversion, ClickDiji delivers every digital marketing service your brand needs under one roof.
+            </p>
+          </div>
+        </div>
         <OurServices />
 
       </div>

@@ -222,6 +222,7 @@ export default function FloatingSocials() {
                   target="_blank"
                   rel="noopener noreferrer"
                   title={soc.name}
+                  aria-label={soc.name}
                 >
                   <Icon className="h-3.5 w-3.5 lg:h-4 lg:w-4" />
                 </motion.a>

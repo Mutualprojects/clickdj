@@ -71,6 +71,7 @@ export default function Home() {
                     src="/magnific_an-artistic-surrealism-pa_l7CkpXqgv9.png"
                     alt="Architecting Digital Excellence Painting"
                     fill
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     priority
                     className="object-contain transition-transform duration-700 group-hover:scale-103"
                   />
@@ -258,6 +259,7 @@ export default function Home() {
             src="/creative-social-media-internet-mockup-with-laptop-keyboard.png"
             alt="Core Pillars Backdrop"
             fill
+            sizes="100vw"
             className="object-cover opacity-35"
           />
           <div className="absolute inset-0 bg-white/75" />

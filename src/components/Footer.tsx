@@ -191,6 +191,7 @@ export default function Footer() {
             />
             <button
               type="submit"
+              aria-label="Subscribe to newsletter"
               className="absolute right-1 top-1 h-9 w-9 rounded-lg bg-[#502ec2] text-white flex items-center justify-center hover:bg-[#1cb2cb] transition-all duration-300 active:scale-95"
             >
               <ArrowRight className="h-4 w-4" />
@@ -215,11 +216,11 @@ export default function Footer() {
           </h4>
           <div className="flex gap-3">
             {[
-              { icon: Linkedin, href: "https://www.linkedin.com/company/108460265/", color: "hover:bg-[#1cb2cb] hover:text-white" },
-              { icon: Instagram, href: "https://www.instagram.com/clickdiji/", color: "hover:bg-[#502ec2] hover:text-white" },
-              { icon: Twitter, href: "https://x.com/Clickdiji", color: "hover:bg-[#1cb2cb] hover:text-white" },
-              { icon: Facebook, href: "https://www.facebook.com/people/click-diji/61576927124569/", color: "hover:bg-[#502ec2] hover:text-white" },
-              { icon: Youtube, href: "https://www.youtube.com/@Clickdiji", color: "hover:bg-[#ea580c] hover:text-white" },
+              { name: "LinkedIn", icon: Linkedin, href: "https://www.linkedin.com/company/108460265/", color: "hover:bg-[#1cb2cb] hover:text-white" },
+              { name: "Instagram", icon: Instagram, href: "https://www.instagram.com/clickdiji/", color: "hover:bg-[#502ec2] hover:text-white" },
+              { name: "Twitter", icon: Twitter, href: "https://x.com/Clickdiji", color: "hover:bg-[#1cb2cb] hover:text-white" },
+              { name: "Facebook", icon: Facebook, href: "https://www.facebook.com/people/click-diji/61576927124569/", color: "hover:bg-[#502ec2] hover:text-white" },
+              { name: "YouTube", icon: Youtube, href: "https://www.youtube.com/@Clickdiji", color: "hover:bg-[#ea580c] hover:text-white" },
             ].map((soc, idx) => {
               const Icon = soc.icon;
               return (
@@ -229,6 +230,7 @@ export default function Footer() {
                   className={`h-9 w-9 rounded-lg bg-neutral-900 border border-neutral-800/80 flex items-center justify-center text-neutral-500 transition-all duration-300 ${soc.color}`}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={soc.name}
                 >
                   <Icon className="h-4 w-4" />
                 </a>

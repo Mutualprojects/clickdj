@@ -46,7 +46,7 @@ export default function BannerCards() {
   ];
 
   // Roll-down animation variants
-  const listVariants = {
+  const listVariants: import("framer-motion").Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -55,7 +55,7 @@ export default function BannerCards() {
     }
   };
 
-  const cardVariants = {
+  const cardVariants: import("framer-motion").Variants = {
     hidden: { 
       opacity: 0, 
       y: -80,

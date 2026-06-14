@@ -52,7 +52,7 @@ export default function AboutHero() {
 
                     <div className="mt-9 flex flex-wrap justify-center gap-3 lg:justify-start">
                         <Link
-                            href="/contact"
+                            href="/contact-us"
                             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#502ec2] transition-colors hover:bg-neutral-100"
                         >
                             <span>Work with us</span>

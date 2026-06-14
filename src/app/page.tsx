@@ -7,8 +7,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import OurProcess from "@/app/about-us/components/process";
 import ClientsProjects from "@/components/ClientsProjects";
 import BannerCards from "@/components/BannerCards";
+import { useState } from "react";
+import OffCanvasForm from "@/components/OffCanvasForm";
+import Link from "next/link";
 
 export default function Home() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
   const { scrollY } = useScroll();
 
   // Parallax shifts for clean depth
@@ -88,14 +92,23 @@ export default function Home() {
             ClickDiji is a full-service digital marketing agency in Hyderabad helping ambitious brands grow with SEO, high-performance web development, Google Ads, and social media marketing. We pair clean engineering with data-driven campaigns to turn clicks into customers — and customers into long-term growth.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row gap-5 justify-center">
-            <button className="px-8 py-4 bg-[#1cb2cb] hover:bg-[#189aa8] text-white rounded-full font-bold transition-colors text-lg shadow-lg">
+            <button 
+              onClick={() => setIsFormOpen(true)}
+              className="px-8 py-4 bg-[#1cb2cb] hover:bg-[#189aa8] text-white rounded-full font-bold transition-colors text-lg shadow-lg"
+            >
               Get a Free Strategy Call
             </button>
-            <button className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full font-bold transition-colors text-lg backdrop-blur-sm">
+            <Link 
+              href="/services"
+              className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full font-bold transition-colors text-lg backdrop-blur-sm inline-flex items-center justify-center"
+            >
               Explore Our Services
-            </button>
+            </Link>
           </div>
         </section>
+
+        {/* Off-Canvas Form */}
+        <OffCanvasForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
 
         {/* Section 2: Our Services — transparent, top half sits on gradient, bottom half on white */}
         <div className="relative z-10 w-full flex flex-col items-center px-6 mt-8 mb-2 lg:mt-12">

@@ -31,6 +31,7 @@ export const metadata: Metadata = {
 };
 
 import CustomCursor from "@/components/CustomCursor";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function RootLayout({
   children,
@@ -52,6 +53,7 @@ export default function RootLayout({
           <ScrollToTop />
           <FloatingSocials />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );

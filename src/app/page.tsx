@@ -37,18 +37,31 @@ export default function Home() {
           {/* Hero Content Container */}
           <div className="relative max-w-7xl w-full flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10 mx-auto">
 
-            {/* Left Column: Headings */}
+            {/* Left Column: Headings & Intro */}
             <motion.div
               style={{ y: yText, opacity: opacityHero }}
               className="lg:col-span-7 flex flex-col justify-center text-left"
             >
-              <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-white leading-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
                 Digital Marketing Agency in Hyderabad<br />
                 That Drives Real Growth
               </h1>
-              <p className="mt-4 text-sm sm:text-lg text-white/80 font-medium tracking-wide">
+              <p className="mt-4 text-sm sm:text-base lg:text-lg text-[#1cb2cb] font-bold tracking-widest uppercase">
                 Your Click, Our Strategy.
               </p>
+              
+              <p className="mt-6 text-sm sm:text-base lg:text-lg text-white/90 leading-relaxed max-w-2xl font-medium">
+                ClickDiji is a full-service digital marketing agency in Hyderabad helping ambitious brands grow with SEO, high-performance web development, Google Ads, and social media marketing. We pair clean engineering with data-driven campaigns to turn clicks into customers — and customers into long-term growth.
+              </p>
+              
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <button className="px-8 py-4 bg-[#1cb2cb] hover:bg-[#189aa8] text-white rounded-full font-bold transition-colors shadow-lg">
+                  Get a Free Strategy Call
+                </button>
+                <button className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full font-bold transition-colors backdrop-blur-sm shadow-sm">
+                  Explore Our Services
+                </button>
+              </div>
             </motion.div>
 
             {/* Right Column: Hero Image with parallax and subtle idle floating */}
@@ -79,21 +92,6 @@ export default function Home() {
           {/* Floating Badge */}
           <div className="w-full shrink-0 mt-auto z-20">
             <Badge />
-          </div>
-        </section>
-
-        {/* Intro Paragraph & Buttons Section */}
-        <section className="relative z-10 w-full flex flex-col items-center px-6 pt-16 pb-8 text-center max-w-4xl mx-auto">
-          <p className="text-lg sm:text-xl text-white/90 leading-relaxed font-medium">
-            ClickDiji is a full-service digital marketing agency in Hyderabad helping ambitious brands grow with SEO, high-performance web development, Google Ads, and social media marketing. We pair clean engineering with data-driven campaigns to turn clicks into customers — and customers into long-term growth.
-          </p>
-          <div className="mt-10 flex flex-col sm:flex-row gap-5 justify-center">
-            <button className="px-8 py-4 bg-[#1cb2cb] hover:bg-[#189aa8] text-white rounded-full font-bold transition-colors text-lg shadow-lg">
-              Get a Free Strategy Call
-            </button>
-            <button className="px-8 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 rounded-full font-bold transition-colors text-lg backdrop-blur-sm">
-              Explore Our Services
-            </button>
           </div>
         </section>
 

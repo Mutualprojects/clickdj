@@ -29,14 +29,6 @@ export default function CompanyProfile() {
               className="h-12 md:h-14 lg:h-16 w-auto object-contain shrink-0"
               priority
             />
-
-            {/* Divider */}
-            <div className="hidden md:block w-[1px] h-12 bg-neutral-300 shrink-0" />
-            <div className="md:hidden w-16 h-[1px] bg-neutral-300 shrink-0" />
-
-            <h2 className="text-xs lg:text-sm font-bold text-neutral-400 uppercase tracking-[0.15em] leading-relaxed max-w-[240px]">
-              Empowering Scalable Digital Reach.
-            </h2>
           </div>
 
           {/* Right Section: Values — single line on every screen */}

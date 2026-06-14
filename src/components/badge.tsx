@@ -18,13 +18,6 @@ export default function Badge() {
             className="h-6 sm:h-8 md:h-10 lg:h-12 w-auto object-contain dark:brightness-110"
             priority
           />
-          
-          {/* Vertical Divider */}
-          <div className="hidden md:block h-1/2 min-h-[24px] max-h-[40px] w-[1px] bg-neutral-300 dark:bg-zinc-700 mx-2" />
-          
-          <p className="hidden md:block text-[9px] lg:text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-400 dark:text-zinc-500 max-w-[180px] lg:max-w-[240px] leading-snug">
-            Empowering scalable digital reach.
-          </p>
         </div>
 
         {/* Right Section: Brand Pillars */}

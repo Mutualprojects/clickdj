@@ -25,34 +25,34 @@ export default function Badge() {
           
           {/* Ideas Pillar */}
           <div className="flex items-center gap-2 sm:gap-3 transition-transform duration-300 hover:scale-105 shrink-0">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-[#1cb2cb]/10 flex items-center justify-center shrink-0">
-              <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#1cb2cb] fill-current" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-[#1cb2cb]/10 dark:bg-[#42d4e8]/20 flex items-center justify-center shrink-0">
+              <Lightbulb className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#1cb2cb] dark:text-[#42d4e8] fill-current" />
             </div>
             <div className="hidden sm:flex flex-col justify-center">
-              <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#1cb2cb] leading-none">Ideas</span>
-              <span className="text-[8px] lg:text-[9px] font-bold text-neutral-400 dark:text-zinc-500 uppercase tracking-widest mt-1 leading-none">Innovation</span>
+              <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#1cb2cb] dark:text-[#42d4e8] leading-none">Ideas</span>
+              <span className="text-[8px] lg:text-[9px] font-bold text-neutral-400 dark:text-zinc-400 uppercase tracking-widest mt-1 leading-none">Innovation</span>
             </div>
           </div>
 
           {/* Strategy Pillar */}
           <div className="flex items-center gap-2 sm:gap-3 transition-transform duration-300 hover:scale-105 shrink-0">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-[#502ec2]/10 flex items-center justify-center shrink-0">
-              <Compass className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#502ec2]" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-[#502ec2]/10 dark:bg-[#8a68f5]/20 flex items-center justify-center shrink-0">
+              <Compass className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#502ec2] dark:text-[#8a68f5]" />
             </div>
             <div className="hidden sm:flex flex-col justify-center">
-              <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#502ec2] leading-none">Strategy</span>
-              <span className="text-[8px] lg:text-[9px] font-bold text-neutral-400 dark:text-zinc-500 uppercase tracking-widest mt-1 leading-none">Planning</span>
+              <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#502ec2] dark:text-[#8a68f5] leading-none">Strategy</span>
+              <span className="text-[8px] lg:text-[9px] font-bold text-neutral-400 dark:text-zinc-400 uppercase tracking-widest mt-1 leading-none">Planning</span>
             </div>
           </div>
 
           {/* Impact Pillar */}
           <div className="flex items-center gap-2 sm:gap-3 transition-transform duration-300 hover:scale-105 shrink-0">
-            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-[#1cb2cb]/10 flex items-center justify-center shrink-0">
-              <Zap className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#1cb2cb] fill-current" />
+            <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-lg sm:rounded-xl bg-[#1cb2cb]/10 dark:bg-[#42d4e8]/20 flex items-center justify-center shrink-0">
+              <Zap className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-[#1cb2cb] dark:text-[#42d4e8] fill-current" />
             </div>
             <div className="hidden sm:flex flex-col justify-center">
-              <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#1cb2cb] leading-none">Impact</span>
-              <span className="text-[8px] lg:text-[9px] font-bold text-neutral-400 dark:text-zinc-500 uppercase tracking-widest mt-1 leading-none">Growth</span>
+              <span className="text-[10px] lg:text-xs font-black uppercase tracking-[0.2em] text-[#1cb2cb] dark:text-[#42d4e8] leading-none">Impact</span>
+              <span className="text-[8px] lg:text-[9px] font-bold text-neutral-400 dark:text-zinc-400 uppercase tracking-widest mt-1 leading-none">Growth</span>
             </div>
           </div>
 

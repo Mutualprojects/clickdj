@@ -30,6 +30,8 @@ export const metadata: Metadata = {
   description: "ClickDiji is a results-driven digital marketing agency in Hyderabad offering SEO, web development, Google Ads & social media marketing. Get a free strategy call.",
 };
 
+import CustomCursor from "@/components/CustomCursor";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -43,6 +45,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+          <CustomCursor />
           <Header />
           <main className="flex-1 flex flex-col">{children}</main>
           <Footer />

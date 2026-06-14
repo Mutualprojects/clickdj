@@ -17,7 +17,7 @@ export default function CompanyProfile() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full bg-[#f6f8fb] rounded-[1.5rem] lg:rounded-[2rem] p-6 lg:py-8 lg:px-10 shadow-2xl flex flex-col xl:flex-row items-center justify-between gap-8 xl:gap-6 border-4 border-white/40"
+          className="w-full bg-[#f6f8fb] dark:bg-neutral-900 rounded-[1.5rem] lg:rounded-[2rem] p-6 lg:py-8 lg:px-10 shadow-2xl flex flex-col xl:flex-row items-center justify-between gap-8 xl:gap-6 border-4 border-white/40 dark:border-zinc-800/50 transition-colors duration-300"
         >
           {/* Left Section: Logo & Text */}
           <div className="flex flex-col md:flex-row items-center text-center md:text-left gap-6 lg:gap-8 xl:w-5/12 shrink-0">
@@ -26,7 +26,7 @@ export default function CompanyProfile() {
               alt="ClickDiji Logo"
               width={200}
               height={70}
-              className="h-12 md:h-14 lg:h-16 w-auto object-contain shrink-0"
+              className="h-12 md:h-14 lg:h-16 w-auto object-contain shrink-0 dark:brightness-110"
               priority
             />
           </div>
@@ -36,14 +36,14 @@ export default function CompanyProfile() {
 
             {/* IDEAS */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-[#e3f4f8] flex items-center justify-center shrink-0 transition-transform hover:scale-105 duration-300">
-                <Lightbulb className="w-6 h-6 lg:w-7 lg:h-7 text-[#01b3ca]" />
+              <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-[#e3f4f8] dark:bg-[#42d4e8]/20 flex items-center justify-center shrink-0 transition-transform hover:scale-105 duration-300">
+                <Lightbulb className="w-6 h-6 lg:w-7 lg:h-7 text-[#01b3ca] dark:text-[#42d4e8]" />
               </div>
               <div className="hidden sm:flex flex-col justify-center">
-                <h3 className="text-[#01b3ca] font-black text-sm lg:text-base tracking-[0.15em] uppercase leading-tight">
+                <h3 className="text-[#01b3ca] dark:text-[#42d4e8] font-black text-sm lg:text-base tracking-[0.15em] uppercase leading-tight">
                   Ideas
                 </h3>
-                <p className="text-neutral-400 font-bold text-[0.6rem] lg:text-[0.65rem] tracking-[0.15em] uppercase mt-0.5">
+                <p className="text-neutral-400 dark:text-zinc-400 font-bold text-[0.6rem] lg:text-[0.65rem] tracking-[0.15em] uppercase mt-0.5">
                   Innovation
                 </p>
               </div>
@@ -51,14 +51,14 @@ export default function CompanyProfile() {
 
             {/* STRATEGY */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-[#eae7f7] flex items-center justify-center shrink-0 transition-transform hover:scale-105 duration-300">
-                <Compass className="w-6 h-6 lg:w-7 lg:h-7 text-[#4631b1]" />
+              <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-[#eae7f7] dark:bg-[#8a68f5]/20 flex items-center justify-center shrink-0 transition-transform hover:scale-105 duration-300">
+                <Compass className="w-6 h-6 lg:w-7 lg:h-7 text-[#4631b1] dark:text-[#8a68f5]" />
               </div>
               <div className="hidden sm:flex flex-col justify-center">
-                <h3 className="text-[#4631b1] font-black text-sm lg:text-base tracking-[0.15em] uppercase leading-tight">
+                <h3 className="text-[#4631b1] dark:text-[#8a68f5] font-black text-sm lg:text-base tracking-[0.15em] uppercase leading-tight">
                   Strategy
                 </h3>
-                <p className="text-neutral-400 font-bold text-[0.6rem] lg:text-[0.65rem] tracking-[0.15em] uppercase mt-0.5">
+                <p className="text-neutral-400 dark:text-zinc-400 font-bold text-[0.6rem] lg:text-[0.65rem] tracking-[0.15em] uppercase mt-0.5">
                   Planning
                 </p>
               </div>
@@ -66,14 +66,14 @@ export default function CompanyProfile() {
 
             {/* IMPACT */}
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-[#e1f5f8] flex items-center justify-center shrink-0 transition-transform hover:scale-105 duration-300">
-                <Zap className="w-6 h-6 lg:w-7 lg:h-7 text-[#02bad1]" fill="#02bad1" />
+              <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-xl bg-[#e1f5f8] dark:bg-[#42d4e8]/20 flex items-center justify-center shrink-0 transition-transform hover:scale-105 duration-300">
+                <Zap className="w-6 h-6 lg:w-7 lg:h-7 text-[#02bad1] dark:text-[#42d4e8]" fill="currentColor" />
               </div>
               <div className="hidden sm:flex flex-col justify-center">
-                <h3 className="text-[#02bad1] font-black text-sm lg:text-base tracking-[0.15em] uppercase leading-tight">
+                <h3 className="text-[#02bad1] dark:text-[#42d4e8] font-black text-sm lg:text-base tracking-[0.15em] uppercase leading-tight">
                   Impact
                 </h3>
-                <p className="text-neutral-400 font-bold text-[0.6rem] lg:text-[0.65rem] tracking-[0.15em] uppercase mt-0.5">
+                <p className="text-neutral-400 dark:text-zinc-400 font-bold text-[0.6rem] lg:text-[0.65rem] tracking-[0.15em] uppercase mt-0.5">
                   Growth
                 </p>
               </div>

@@ -26,8 +26,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Click Diji - Your Click, Our Strategy",
-  description: "Brand-aligned digital strategies with click optimization.",
+  title: "Best Digital Marketing Agency in Hyderabad | ClickDiji",
+  description: "ClickDiji is a results-driven digital marketing agency in Hyderabad offering SEO, web development, Google Ads & social media marketing. Get a free strategy call.",
 };
 
 export default function RootLayout({

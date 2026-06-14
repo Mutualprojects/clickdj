@@ -4,9 +4,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import styles from "./BannerCards.module.css";
 
+import { Rocket, Target, Shield, TrendingUp, BarChart } from "lucide-react";
+
 interface CardItem {
   accentColor: string;
-  iconClass: string;
+  icon: React.FC<any>;
   title: string;
   description: string;
 }
@@ -15,31 +17,31 @@ export default function BannerCards() {
   const cards: CardItem[] = [
     {
       accentColor: "#0B374D",
-      iconClass: "fa-solid fa-rocket",
+      icon: Rocket,
       title: "Who We Are",
       description: "A full-service digital catalyst bridging technical software engineering with high-performance creative branding."
     },
     {
       accentColor: "#1286A8",
-      iconClass: "fa-solid fa-bullseye",
+      icon: Target,
       title: "Our Mission",
       description: "To equip ambitious enterprises with crystal-clear digital roadmaps, pristine codebases, and scalable funnels."
     },
     {
       accentColor: "#D2B53B",
-      iconClass: "fa-solid fa-shield-halved",
+      icon: Shield,
       title: "Core Values",
       description: "Uncompromising code performance, client-first design systems, and absolute transparency in marketing spend."
     },
     {
       accentColor: "#DA611E",
-      iconClass: "fa-solid fa-chart-line",
+      icon: TrendingUp,
       title: "Our Impact",
       description: "Driving qualified client leads, optimizing operational costs, and boosting ticketing/booking conversions."
     },
     {
       accentColor: "#AC2A1A",
-      iconClass: "fa-solid fa-magnifying-glass-chart",
+      icon: BarChart,
       title: "How We Promote",
       description: "Deploying targeted search engine marketing, organic SEO authority, social ads, and programmatic reach."
     }
@@ -79,17 +81,6 @@ export default function BannerCards() {
 
   return (
     <div className={styles.container} style={{ perspective: "1200px" }}>
-      {/* Load external styles (FontAwesome & Jura Font) */}
-      <link 
-        rel="stylesheet" 
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
-        crossOrigin="anonymous" 
-        referrerPolicy="no-referrer"
-      />
-      <link 
-        rel="stylesheet" 
-        href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;900&display=swap" 
-      />
 
       <div className="max-w-7xl mx-auto w-full">
         {/* Animated Header Section */}
@@ -129,7 +120,7 @@ export default function BannerCards() {
               style={{ "--accent-color": card.accentColor } as React.CSSProperties}
             >
               <div className={styles.icon}>
-                <i className={card.iconClass}></i>
+                <card.icon className="w-8 h-8 opacity-90" />
               </div>
               <div className={styles.title}>{card.title}</div>
               <div className={styles.descr}>{card.description}</div>

@@ -5,7 +5,7 @@
   align-content: center;
   gap: 2rem;
   padding: 4rem 2rem;
-  font-family: "Jura", sans-serif;
+  font-family: var(--font-jura), sans-serif;
   color: var(--color);
   width: 100%;
   margin-bottom: 10rem;

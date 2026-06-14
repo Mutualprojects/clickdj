@@ -262,7 +262,7 @@ export default function OurServices() {
         </div>
 
         {/* ── Dots ── */}
-        <div className="flex shrink-0 justify-center gap-1.5 py-4 md:py-5">
+        <div className="flex shrink-0 justify-center py-4 md:py-5">
           {Array.from({ length: dotCount }).map((_, idx) => {
             const isOn = idx === current;
             return (
@@ -272,12 +272,16 @@ export default function OurServices() {
                 aria-label={`Go to slide ${idx + 1}`}
                 aria-current={isOn}
                 onClick={() => go(idx)}
-                className="h-1.5 rounded-full transition-all duration-300"
-                style={{
-                  width: isOn ? 26 : 6,
-                  background: isOn ? "#1cb2cb" : "rgba(120,120,135,0.45)",
-                }}
-              />
+                className="w-11 h-11 flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1cb2cb] rounded-full"
+              >
+                <span 
+                  className="h-2 rounded-full transition-all duration-300"
+                  style={{
+                    width: isOn ? 26 : 8,
+                    background: isOn ? "#1cb2cb" : "#71717a", // Increased contrast ratio
+                  }}
+                />
+              </button>
             );
           })}
         </div>

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { League_Spartan, Roboto_Slab, Roboto } from "next/font/google";
+import { League_Spartan, Roboto_Slab, Roboto, Jura } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -28,6 +28,13 @@ const roboto = Roboto({
   display: "swap",
 });
 
+const jura = Jura({
+  variable: "--font-jura",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Best Digital Marketing Agency in Hyderabad | ClickDiji",
   description: "ClickDiji is a results-driven digital marketing agency in Hyderabad offering SEO, web development, Google Ads & social media marketing. Get a free strategy call.",
@@ -45,7 +52,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${leagueSpartan.variable} ${robotoSlab.variable} ${roboto.variable} h-full antialiased`}
+      className={`${leagueSpartan.variable} ${robotoSlab.variable} ${roboto.variable} ${jura.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem>

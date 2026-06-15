@@ -7,6 +7,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import OurProcess from "@/app/about-us/components/process";
 import ClientsProjects from "@/components/ClientsProjects";
 import BannerCards from "@/components/BannerCards";
+import FAQ from "@/components/FAQ";
 import { useState } from "react";
 import OffCanvasForm from "@/components/OffCanvasForm";
 import Link from "next/link";
@@ -369,6 +370,9 @@ export default function Home() {
 
       {/* Section 3.1: Tech Stack Banner Cards */}
       <BannerCards />
+
+      {/* Section 3.2: Frequently Asked Questions */}
+      <FAQ />
 
     </div>
   );

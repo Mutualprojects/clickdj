@@ -58,10 +58,10 @@ export default function FAQ() {
         <div className="text-center space-y-3 mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200/50 dark:border-neutral-800 text-xs font-bold text-[#1cb2cb] mx-auto">
             <Sparkles className="w-3.5 h-3.5 text-[#1cb2cb]" />
-            Frequently Asked Questions
+            FAQ
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-neutral-900 dark:text-white leading-tight">
-            Clear Answers to Your Questions
+            Frequently Asked Questions
           </h2>
           <div className="w-12 h-1 bg-[#502ec2] rounded-full mx-auto mt-4" />
           <p className="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base max-w-xl mx-auto pt-2">
